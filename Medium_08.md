@@ -1,0 +1,49 @@
+```CPP
+#include <iostream>
+#include <typeinfo>
+
+void takes_pointer(int* pointer)
+{
+	if (typeid(pointer) == typeid(int[])) std::cout << 'a';
+	if (typeid(pointer) == typeid(int*)) std::cout << 'p';
+}
+
+void takes_array(int array[])
+{
+	if (typeid(array) == typeid(int[])) std::cout << 'a';
+	if (typeid(array) == typeid(int*)) std::cout << 'p';
+}
+
+int main()
+{
+	int* pointer = nullptr;
+	int array[1];
+
+	takes_pointer(array);
+	takes_array(pointer);
+
+	std::cout << (typeid(int*) == typeid(int[]));
+}
+```
+**Çıktı:**
+```
+pp0
+```
+**Analiz:**
+- fonksiyon dizinin simi ile çağırılıyor array decay olmalı. Yani fonksiyonun parametresine dizinin adresi gönderilecek. 
+- typeid operatörü compile time'a ilişkin. Birinci if içine girmeyecek, biri int* türü, diğeri incomplete dizi türü.
+- 2. if'e girecek.
+- takes_array fonksiyonunun parametresi bir pointer. İlk if'in içine girmeyecek.
+
+
+
+
+
+
+
+
+
+
+
+
+
