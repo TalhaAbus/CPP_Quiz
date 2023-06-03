@@ -1,4 +1,4 @@
-```
+```CPP
 #include <iostream>
 
 class A {
